@@ -6,3 +6,4 @@ UserSettings
 .idea
 obj
 Assembly-CSharp.csproj
+*.user
