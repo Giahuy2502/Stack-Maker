@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
     private bool isMoving = false;
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
-
-    private int animIdx = 0;
+    private string animName = "idle";
+    private GameManager manager => GameManager.Instance;
 
     private void Start()
     {
@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isMoving)
         {
             startPos = Input.mousePosition;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !isMoving)
         {
             endPos = Input.mousePosition;
             direct = GetDirect(startPos, endPos);
@@ -52,11 +52,11 @@ public class Player : MonoBehaviour
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f && manager.State == GameState.Playing)
             {
                 transform.position = targetPos;
                 isMoving = false;
-                ChangeAnim(0);
+                ChangeAnim("idle");
             }
         }
         
@@ -113,31 +113,53 @@ public class Player : MonoBehaviour
     }
     public void AddBrick()
     {
-        // sinh brick mới bên dưới
+        // sinh brick mới bên dưới -> nên sử dụng object pooling
         GameObject newBrick = Instantiate(brickPrefab, transform.position, Quaternion.identity);
         newBrick.transform.SetParent(this.transform);
         newBrick.transform.position = transform.position + brickHeight * stack.Count;
         stack.Push(newBrick);
         // cho nhân vật nhảy lên
-        ChangeAnim(1);
+        ChangeAnim("jump");
         model.transform.position = transform.position + brickHeight * stack.Count;
     }
     public void RemoveBrick()
     {
         if (stack.Count <= 0)
         {
+            // thua cuộc 
             return;
         }
         GameObject brick = stack.Pop();
+        // hủy brick cũ, nên sử dụng object pooling
         Destroy(brick);
         model.transform.position = transform.position + brickHeight * stack.Count;
-        
+        ChangeAnim("idle");
     }
-    public void ChangeAnim(int animIdx)
+    public void RemoveAllBrick()
     {
-        if (this.animIdx == animIdx) return;
-        Debug.Log("ChangeAnim: "+ animIdx);
-        this.animIdx = animIdx;
-        anim.SetInteger("renwu", this.animIdx);
+        if (stack.Count <= 0)
+        {
+            // thua cuộc 
+            return;
+        }
+        while(stack.Count > 0)
+        {
+            GameObject brick = stack.Pop();
+            // hủy brick cũ, nên sử dụng object pooling
+            Destroy(brick);
+            model.transform.position = transform.position + brickHeight * stack.Count;
+        }
+    }
+    public void ChangeAnim(String animName)
+    {
+        if (this.animName == animName) return;
+        Debug.Log("ChangeAnim: "+ animName);
+        this.animName = animName;
+        anim.SetTrigger(this.animName);
+    }
+
+    public void RotateToChess()
+    {
+        model.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }
