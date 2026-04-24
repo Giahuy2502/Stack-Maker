@@ -20,6 +20,7 @@ public class Brick : MonoBehaviour
         {
             brick.SetActive(false);
             other.GetComponent<Player>().AddBrick();
+            isTaken = true;
         }
     }
 

@@ -11,13 +11,17 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private float speed;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject brickPrefab;
+    [SerializeField] private Vector3 brickHeight;
     
-    private Vector3 startPos, endPos, targetPos;
+    private Vector3 startPos, endPos, targetPos,raycastDirect;
     private Direct direct;
     private bool isMoving = false;
-    
-    private List<GameObject> bricks = new List<GameObject>();
     private Vector3 offset = new Vector3();
+    private Stack<GameObject> stack = new Stack<GameObject>();
+
+    private int animIdx = 0;
 
     private void Start()
     {
@@ -29,7 +33,7 @@ public class Player : MonoBehaviour
         isMoving = false;
         startPos = transform.position;
         endPos = transform.position;
-        bricks.Clear();
+        stack.Clear();
     }
     public void Update()
     {
@@ -42,7 +46,6 @@ public class Player : MonoBehaviour
             endPos = Input.mousePosition;
             direct = GetDirect(startPos, endPos);
             isMoving = true;
-            Debug.Log(direct.ToString());
             Move(direct);
         }
 
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
             {
                 transform.position = targetPos;
                 isMoving = false;
+                ChangeAnim(0);
             }
         }
         
@@ -76,20 +80,23 @@ public class Player : MonoBehaviour
         {
             case Direct.Right:
                 offset = Vector3.left;
+                raycastDirect = Vector3.right;
                 break;
             case Direct.Left:
                 offset = Vector3.right;
+                raycastDirect = Vector3.left;
                 break;
             case Direct.Forward:
                 offset = Vector3.back;
+                raycastDirect = Vector3.forward;
                 break;
             case Direct.Back:
                 offset = Vector3.forward;
+                raycastDirect = Vector3.back;
                 break;
         }
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, Mathf.Infinity, wallLayer))
+        if (Physics.Raycast(transform.position, raycastDirect, out hitInfo, Mathf.Infinity, wallLayer))
         {
-            Debug.Log(hitInfo.collider.name);
             if (hitInfo.collider.CompareTag("Wall"))
             {
                 return hitInfo.transform.position + offset;
@@ -98,43 +105,39 @@ public class Player : MonoBehaviour
 
         return transform.position;
     }
-    private void Rotate(Direct direct)
-    {
-        switch (direct)
-        {
-            case Direct.Right:
-                transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
-            case Direct.Left:
-                transform.rotation = Quaternion.Euler(0, -90, 0);
-                break;
-            case Direct.Forward:
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case Direct.Back:
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-        }
-    }
     private void Move(Direct direct)
     {
-        Rotate(direct);
-        Debug.Log("target pos before: "+ targetPos+" offser: "+ offset);
         targetPos = GetTargetPos(direct);
-        Debug.Log("target pos after: "+ targetPos+" offser: "+ offset);
         offset = Vector3.zero;
         
     }
     public void AddBrick()
     {
-        
+        // sinh brick mới bên dưới
+        GameObject newBrick = Instantiate(brickPrefab, transform.position, Quaternion.identity);
+        newBrick.transform.SetParent(this.transform);
+        newBrick.transform.position = transform.position + brickHeight * stack.Count;
+        stack.Push(newBrick);
+        // cho nhân vật nhảy lên
+        ChangeAnim(1);
+        model.transform.position = transform.position + brickHeight * stack.Count;
     }
     public void RemoveBrick()
     {
+        if (stack.Count <= 0)
+        {
+            return;
+        }
+        GameObject brick = stack.Pop();
+        Destroy(brick);
+        model.transform.position = transform.position + brickHeight * stack.Count;
         
     }
     public void ChangeAnim(int animIdx)
     {
-        anim.SetInteger("renwu", animIdx);
+        if (this.animIdx == animIdx) return;
+        Debug.Log("ChangeAnim: "+ animIdx);
+        this.animIdx = animIdx;
+        anim.SetInteger("renwu", this.animIdx);
     }
 }
