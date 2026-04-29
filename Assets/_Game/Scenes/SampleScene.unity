@@ -2189,10 +2189,10 @@ RectTransform:
   - {fileID: 767364333}
   m_Father: {fileID: 2045174174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 662.5, y: -61.0609}
+  m_SizeDelta: {x: 375, y: 122.1218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361157087
 MonoBehaviour:
@@ -2391,10 +2391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c844e50c9ddff7c4c88a946da2c174c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireworks:
-  - {fileID: 6519188775097386239}
-  - {fileID: 6518991145437920966}
   state: 1
+  onWinGame:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &390957905
 Transform:
   m_ObjectHideFlags: 0
@@ -6520,10 +6520,10 @@ RectTransform:
   - {fileID: 1543934837}
   m_Father: {fileID: 2045174174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 237.5, y: -61.0609}
+  m_SizeDelta: {x: 375, y: 122.1218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014583444
 MonoBehaviour:
@@ -7272,7 +7272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1144209743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8695,7 +8695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 95019447627564878}
-  speed: 5
+  speed: 3
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -13102,6 +13102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d0cf55780915b4fadc2f83774e4592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireworks:
+  - {fileID: 6519188775097386239}
+  - {fileID: 6518991145437920966}
 --- !u!1 &2045174173
 GameObject:
   m_ObjectHideFlags: 0

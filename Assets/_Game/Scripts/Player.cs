@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
         startPos = transform.position;
         endPos = transform.position;
         stack.Clear();
+        //
+        manager.onWinGame.AddListener(RemoveAllBrick);
+        manager.onWinGame.AddListener(RotateToChess);
+        manager.onWinGame.AddListener(ChangeWinAnim);
     }
     public void Update()
     {
@@ -157,9 +161,22 @@ public class Player : MonoBehaviour
         this.animName = animName;
         anim.SetTrigger(this.animName);
     }
-
     public void RotateToChess()
     {
         model.transform.rotation = Quaternion.Euler(Vector3.zero);
+    }
+    private void ChangeWinAnim()
+    {
+        ChangeAnim("win");
+    }
+    private void OnDisable()
+    {
+        OnDespawn();
+    }
+    public void OnDespawn()
+    {
+        manager.onWinGame.RemoveListener(RemoveAllBrick);
+        manager.onWinGame.RemoveListener(RotateToChess);
+        manager.onWinGame.RemoveListener(ChangeWinAnim);
     }
 }

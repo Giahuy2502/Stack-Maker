@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyNamespace;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem[] fireworks;
     [SerializeField] private GameState state = GameState.Playing;
     public static GameManager Instance { get; private set; }
     public GameState State => state;
     private UIManager uiManager => UIManager.Instance;
+
+    public UnityEvent onWinGame;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,16 +23,19 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
     }
-    
-    
 
-    public void OnWinGame(Player player)
+    private void Start()
     {
-        SetOffFirework();
+        OnInit();
+    }
+
+    private void OnInit()
+    {
+    }
+    public void OnWinGame()
+    {
         state = GameState.Win;
-        player.RemoveAllBrick();
-        player.RotateToChess();
-        player.ChangeAnim("win");
+        onWinGame?.Invoke();
         Invoke(nameof(CallWinUI),2.6f);
     }
 
@@ -41,17 +48,10 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    private void SetOffFirework()
-    {
-        foreach (var firework in fireworks)
-        {
-            firework.Play();
-        }
-    }
 
     public void Restart()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void NextLevel()
