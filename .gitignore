@@ -7,3 +7,4 @@ UserSettings
 obj
 Assembly-CSharp.csproj
 *.user
+*.csproj
