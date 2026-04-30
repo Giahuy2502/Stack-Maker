@@ -10,7 +10,7 @@ public class LevelData
 [System.Serializable]
 public class TileData
 {
-    public Vector3Int position;
+    public Vector3 position;
     public Vector3 rotation;
     public int tileID;
 }

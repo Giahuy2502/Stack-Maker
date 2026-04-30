@@ -43,6 +43,10 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
+            if (manager.State != GameState.Playing)
+            {
+                manager.ChangeState(GameState.Playing);
+            }
             startPos = Input.mousePosition;
         }
         if (Input.GetMouseButtonUp(0) && !isMoving)
@@ -117,6 +121,10 @@ public class Player : MonoBehaviour
     }
     public void AddBrick()
     {
+        if (manager.State != GameState.Playing)
+        {
+            return;
+        }
         // sinh brick mới bên dưới -> nên sử dụng object pooling
         GameObject newBrick = Instantiate(brickPrefab, transform.position, Quaternion.identity);
         newBrick.transform.SetParent(this.transform);

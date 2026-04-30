@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameState state = GameState.Playing;
+    [SerializeField] private LevelManager levelManager;
     public static GameManager Instance { get; private set; }
     public GameState State => state;
     private UIManager uiManager => UIManager.Instance;
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private void OnInit()
     {
+        state = GameState.Start;
+        levelManager.LoadLevel(1);
     }
     public void OnWinGame()
     {
@@ -57,5 +60,10 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         
+    }
+
+    public void ChangeState(GameState newState)
+    {
+        state = newState;
     }
 }

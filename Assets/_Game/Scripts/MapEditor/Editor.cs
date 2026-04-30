@@ -96,7 +96,7 @@ public class Editor : MonoBehaviour
         foreach (var item in spawnedTiles)
         {
             TileData tData = new TileData();
-            tData.position = item.Key;
+            tData.position = item.Value.transform.position;
             tData.rotation = item.Value.transform.eulerAngles;
             tData.tileID = GetTileID(item.Value); 
             levelData.tiles.Add(tData);
@@ -135,10 +135,12 @@ public class Editor : MonoBehaviour
             if (tData.tileID >= 0 && tData.tileID < tileCollection.Tiles.Count)
             {
                 GameObject prefab = tileCollection.Tiles[tData.tileID].prefab;
-                Vector3 worldPos = grid.GetCellCenterWorld(tData.position);
+                Vector3 worldPos = tData.position;
                 worldPos.y = 0;
                 GameObject newTile = Instantiate(prefab, worldPos, Quaternion.Euler(tData.rotation), mapContainer);
-                spawnedTiles.Add(tData.position, newTile);
+                Vector3Int gridPos = Vector3Int.FloorToInt(tData.position); 
+                if (!spawnedTiles.ContainsKey(gridPos)) 
+                    spawnedTiles.Add(gridPos, newTile);
             }
         }
         Debug.Log($"<color=yellow>Đã Load thành công: {data.levelName}</color>");

@@ -15,6 +15,7 @@ public class WinPos : MonoBehaviour
 
     void OnInit()
     {
+        if (manager == null) return;
         manager.onWinGame.AddListener(SetOffFirework);
     }
 
@@ -41,6 +42,7 @@ public class WinPos : MonoBehaviour
 
     private void OnDespawn()
     {
+        if (manager == null) return;
         manager.onWinGame.RemoveListener(SetOffFirework);
     }
     
