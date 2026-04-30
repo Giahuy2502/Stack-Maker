@@ -9,10 +9,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameState state = GameState.Playing;
-    [SerializeField] private LevelManager levelManager;
     public static GameManager Instance { get; private set; }
     public GameState State => state;
     private UIManager uiManager => UIManager.Instance;
+    private LevelManager levelManager => LevelManager.Instance;
 
     public UnityEvent onWinGame;
     private void Awake()
@@ -28,12 +28,17 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         OnInit();
+        levelManager.LoadLevel(levelManager.CurrentLevel);
     }
 
     private void OnInit()
     {
         state = GameState.Start;
-        levelManager.LoadLevel(1);
+    }
+
+    private void OnDespawn()
+    {
+        state = GameState.End;
     }
     public void OnWinGame()
     {
@@ -54,7 +59,10 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        OnDespawn();
+        OnInit();
+        levelManager.OnRestart();
     }
 
     public void NextLevel()

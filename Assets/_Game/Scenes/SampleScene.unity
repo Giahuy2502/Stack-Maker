@@ -2299,7 +2299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  levelManager: {fileID: 816720743}
   onWinGame:
     m_PersistentCalls:
       m_Calls: []
@@ -4762,6 +4761,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   tileCollection: {fileID: 11400000, guid: 44b63cbc788074b45a3436a558bc83b3, type: 2}
   mapContainer: {fileID: 1680844272}
+  currentLevel: 1
+  player: {fileID: 1380443427}
 --- !u!4 &816720744
 Transform:
   m_ObjectHideFlags: 0

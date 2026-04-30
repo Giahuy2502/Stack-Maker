@@ -8,6 +8,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] private TileCollection tileCollection;
     [SerializeField] private Transform mapContainer;
+    [SerializeField] private int currentLevel = 1;
+    
+    [SerializeField] private Player player;
+    private Dictionary<Vector3Int, GameObject> spawnedTiles = new Dictionary<Vector3Int, GameObject>();
+    public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public static LevelManager Instance { get; private set; }
     private void Awake()
     {
@@ -21,7 +26,8 @@ public class LevelManager : MonoBehaviour
 
     public void OnInit()
     {
-        
+        player.OnDespawn();
+        player.OnInit();
     }
 
     public void LoadLevel(int level)
@@ -42,6 +48,9 @@ public class LevelManager : MonoBehaviour
                 Vector3 worldPos = tData.position;
                 worldPos.y = 0;
                 var newTile = Instantiate(prefab, worldPos, Quaternion.Euler(tData.rotation), mapContainer);
+                Vector3Int gridPos = Vector3Int.FloorToInt(tData.position); 
+                if (!spawnedTiles.ContainsKey(gridPos)) 
+                    spawnedTiles.Add(gridPos, newTile);
             }
         }
         Debug.Log($"<color=yellow>Đã Load thành công: {data.levelName}</color>");
@@ -64,7 +73,8 @@ public class LevelManager : MonoBehaviour
 
     public void OnDespawn()
     {
-        
+        // xoa map hien tai
+        ClearCurrentMap();
     }
 
     public void OnWin()
@@ -79,11 +89,26 @@ public class LevelManager : MonoBehaviour
 
     public void OnRestart()
     {
-        
+        OnDespawn();
+        LoadLevel(currentLevel);
+        OnInit();
+        OnPlay();
     }
 
     public void OnNext()
     {
-        
+        OnDespawn();
+        LoadLevel(currentLevel);
+        OnInit();
+        OnPlay();
+    }
+    
+    public void ClearCurrentMap()
+    {
+        foreach (var item in spawnedTiles)
+        {
+            Destroy(item.Value);
+        }
+        spawnedTiles.Clear();
     }
 }

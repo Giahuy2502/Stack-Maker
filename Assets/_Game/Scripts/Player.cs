@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MyNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject brickPrefab;
     [SerializeField] private Vector3 brickHeight;
     
-    private Vector3 startPos, endPos, targetPos,raycastDirect;
+    private Vector3 startPos, endPos, targetPos,raycastDirect,rotation;
     private Direct direct;
     private bool isMoving = false;
     private Vector3 offset = new Vector3();
@@ -25,22 +26,31 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        rotation = model.transform.rotation.eulerAngles;
         OnInit();
     }
 
-    private void OnInit()
+    public void OnInit()
     {
         isMoving = false;
+        transform.position = Vector3.zero; // cho player ve vi tri ban dau
+        RotateModel(rotation);
         startPos = transform.position;
         endPos = transform.position;
         stack.Clear();
+        ChangeAnim("idle");
         //
         manager.onWinGame.AddListener(RemoveAllBrick);
         manager.onWinGame.AddListener(RotateToChess);
         manager.onWinGame.AddListener(ChangeWinAnim);
+        Debug.Log("player Oninit.....");
     }
     public void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) 
+        {
+            return; 
+        }
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
             if (manager.State != GameState.Playing)
@@ -54,6 +64,7 @@ public class Player : MonoBehaviour
             endPos = Input.mousePosition;
             direct = GetDirect(startPos, endPos);
             isMoving = true;
+            Debug.Log("player Start Move.....");
             Move(direct);
         }
 
@@ -171,7 +182,12 @@ public class Player : MonoBehaviour
     }
     public void RotateToChess()
     {
-        model.transform.rotation = Quaternion.Euler(Vector3.zero);
+        RotateModel(Vector3.zero);
+    }
+
+    private void RotateModel(Vector3 dicrection)
+    {
+        model.transform.rotation = Quaternion.Euler(dicrection);
     }
     private void ChangeWinAnim()
     {
