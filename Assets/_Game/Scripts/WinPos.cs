@@ -8,7 +8,7 @@ public class WinPos : MonoBehaviour
     [SerializeField] private ParticleSystem[] fireworks;
     private GameManager manager => GameManager.Instance;
 
-    private void Start()
+    private void OnEnable()
     {
         OnInit();
     }

@@ -8,6 +8,22 @@ public class Brick : MonoBehaviour
     [SerializeField] private GameObject brick;
     
     bool isTaken = false;
+
+    private void OnEnable()
+    {
+        OnInit();
+    }
+
+    private void OnDisable()
+    {
+        OnDespawn();
+    }
+    
+    private void OnDespawn()
+    {
+        brick.SetActive(false);
+    }
+
     public void OnInit()
     {
         isTaken = false;
@@ -22,10 +38,5 @@ public class Brick : MonoBehaviour
             other.GetComponent<Player>().AddBrick();
             isTaken = true;
         }
-    }
-
-    private void OnDespawn()
-    {
-        brick.SetActive(false);
     }
 }

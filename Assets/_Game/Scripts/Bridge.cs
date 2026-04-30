@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,22 @@ public class Bridge : MonoBehaviour
 {
     [SerializeField] private GameObject brick;
     bool isPlaced = false;
+
+    public void OnEnable()
+    {
+        OnInit();
+    }
+
+    private void OnDisable()
+    {
+        OnDespawn();
+    }
+    
+    private void OnDespawn()
+    {
+        brick.SetActive(false);
+    }
+
     public void OnInit()
     {
         isPlaced = false;
@@ -20,10 +37,5 @@ public class Bridge : MonoBehaviour
             other.GetComponent<Player>().RemoveBrick();
             isPlaced = true;
         }
-    }
-
-    private void OnDespawn()
-    {
-        brick.SetActive(false);
     }
 }
