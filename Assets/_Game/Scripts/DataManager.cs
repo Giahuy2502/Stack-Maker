@@ -21,12 +21,7 @@ public class DataManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        OnInit();
-    }
-
-    private void OnInit()
+    public void OnInit()
     {
         LoadData();
         score = 0;
@@ -37,15 +32,22 @@ public class DataManager : MonoBehaviour
         score += scoreToAdd;
     }
 
+    public void SetLevel(int level)
+    {
+        this.level = level;
+    }
+
     public void SaveData()
     {
         PlayerPrefs.SetInt("Level", level);
+        Debug.Log("Save Data: level = "+level);
         PlayerPrefs.Save();
     }
 
     public void LoadData()
     {
         level = PlayerPrefs.GetInt("Level",1);
+        Debug.Log("Load Data: level = "+level);
     }
 
     private void OnDespawn()
@@ -55,6 +57,16 @@ public class DataManager : MonoBehaviour
 
     public void OnApplicationPause(bool pauseStatus)
     {
-        SaveData(); 
+        if (pauseStatus)
+        {
+            SaveData(); 
+        }
+    }
+
+    [ContextMenu("Reset Level")]
+    public void ResetLevel()
+    {
+        level = 1;
+        SaveData();
     }
 }

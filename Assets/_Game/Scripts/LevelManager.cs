@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
 
     public void OnInit()
     {
+        data.OnInit();
         currentLevel = data.Level;
         data.AddScore(-data.Score);
         player.OnDespawn();
@@ -105,7 +106,9 @@ public class LevelManager : MonoBehaviour
     public void OnNext()
     {
         OnDespawn();
-        LoadLevel(currentLevel);
+        LoadLevel(currentLevel+1);
+        data.SetLevel(currentLevel+1); // lưu level mới
+        data.SaveData();
         manager.ChangeState(GameState.Playing);
         OnInit();
         OnPlay();
