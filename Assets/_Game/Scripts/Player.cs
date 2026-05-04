@@ -33,11 +33,11 @@ public class Player : MonoBehaviour
     public void OnInit()
     {
         isMoving = false;
-        transform.position = Vector3.zero; // cho player ve vi tri ban dau
-        RotateModel(rotation);
         startPos = transform.position;
         endPos = transform.position;
-        stack.Clear();
+        RemoveAllBrick();
+        transform.position = Vector3.zero;
+        RotateModel(rotation);
         ChangeAnim("idle");
         //
         manager.onWinGame.AddListener(RemoveAllBrick);
