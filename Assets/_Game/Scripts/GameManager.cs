@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         OnDespawn();
         OnInit();
         levelManager.OnRestart();
@@ -67,7 +66,9 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        
+        OnDespawn();
+        OnInit();
+        levelManager.OnNext();
     }
 
     public void ChangeState(GameState newState)

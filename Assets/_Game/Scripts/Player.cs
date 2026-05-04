@@ -51,6 +51,10 @@ public class Player : MonoBehaviour
         {
             return; 
         }
+        if(manager.State != GameState.Playing)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
             if (manager.State != GameState.Playing)
@@ -71,7 +75,7 @@ public class Player : MonoBehaviour
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f && manager.State == GameState.Playing)
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f)
             {
                 transform.position = targetPos;
                 isMoving = false;

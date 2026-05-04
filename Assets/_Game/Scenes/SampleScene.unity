@@ -5090,7 +5090,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 796270068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512801198}
+        m_TargetAssemblyTypeName: SettingPanel, Assembly-CSharp
+        m_MethodName: OnExitBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &796270068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6451,7 +6463,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 936865578}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1000410300}
+        m_TargetAssemblyTypeName: GamePlayPanel, Assembly-CSharp
+        m_MethodName: OnSetting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &936865578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7078,13 +7102,14 @@ GameObject:
   - component: {fileID: 1000410297}
   - component: {fileID: 1000410299}
   - component: {fileID: 1000410298}
+  - component: {fileID: 1000410300}
   m_Layer: 5
   m_Name: GameplayPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1000410297
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7120,7 +7145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7144,6 +7169,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000410296}
   m_CullTransparentMesh: 1
+--- !u!114 &1000410300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000410296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8779d6f5f943ae4c9578ef28975878e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTxt: {fileID: 1024589413}
+  settingBtn: {fileID: 936865577}
 --- !u!1001 &1001652212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8457,7 +8496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10379,7 +10418,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1398838128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512801198}
+        m_TargetAssemblyTypeName: SettingPanel, Assembly-CSharp
+        m_MethodName: OnRetryBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1398838128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10713,6 +10764,7 @@ GameObject:
   - component: {fileID: 1512801195}
   - component: {fileID: 1512801197}
   - component: {fileID: 1512801196}
+  - component: {fileID: 1512801198}
   m_Layer: 5
   m_Name: SettingPanel
   m_TagString: Untagged
@@ -10754,7 +10806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.8901961}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10778,6 +10830,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512801194}
   m_CullTransparentMesh: 1
+--- !u!114 &1512801198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512801194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9d8a73e90d9014fa509513ebd97127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitBtn: {fileID: 796270067}
+  menuBtn: {fileID: 1678040187}
+  retryBtn: {fileID: 1398838127}
 --- !u!4 &1514723065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186139807458652260, guid: ce622dbcb807202468568e0c7d5c6c13, type: 3}
@@ -12113,7 +12180,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1678040188}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512801198}
+        m_TargetAssemblyTypeName: SettingPanel, Assembly-CSharp
+        m_MethodName: OnMenuBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1678040188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12234,7 +12313,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1680019710}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1900417444}
+        m_TargetAssemblyTypeName: MainPanel, Assembly-CSharp
+        m_MethodName: OnPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1680019710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14421,13 +14512,14 @@ GameObject:
   - component: {fileID: 1900417441}
   - component: {fileID: 1900417443}
   - component: {fileID: 1900417442}
+  - component: {fileID: 1900417444}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1900417441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14463,7 +14555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -14487,6 +14579,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900417440}
   m_CullTransparentMesh: 1
+--- !u!114 &1900417444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900417440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010179b44207ffd4d868c967f5a48982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTxt: {fileID: 777099551}
+  playBtn: {fileID: 1680019709}
 --- !u!1001 &1906592428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14772,6 +14878,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winPanel: {fileID: 1144209744}
+  mainPanel: {fileID: 1900417444}
+  settingPanel: {fileID: 1512801198}
+  gamePlayPanel: {fileID: 1000410300}
 --- !u!114 &1927438259
 MonoBehaviour:
   m_ObjectHideFlags: 0
