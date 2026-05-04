@@ -36612,6 +36612,8 @@ MonoBehaviour:
   fireworks:
   - {fileID: 8670001192711489513}
   - {fileID: 2210751873167026813}
+  chestClose: {fileID: 8176492384716876028}
+  chestOpen: {fileID: 6885915987710569315}
 --- !u!1 &7259936784258322480
 GameObject:
   m_ObjectHideFlags: 0

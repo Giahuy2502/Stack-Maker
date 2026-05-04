@@ -6,6 +6,7 @@ using UnityEngine;
 public class WinPos : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] fireworks;
+    [SerializeField] private GameObject chestClose,chestOpen;
     private GameManager manager => GameManager.Instance;
 
     private void OnEnable()
@@ -17,6 +18,8 @@ public class WinPos : MonoBehaviour
     {
         if (manager == null) return;
         manager.onWinGame.AddListener(SetOffFirework);
+        manager.onWinGame.AddListener(OpenChest);
+        CloseChest();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +38,17 @@ public class WinPos : MonoBehaviour
         }
     }
 
+    private void OpenChest()
+    {
+        chestOpen.SetActive(true);
+        chestClose.SetActive(false);
+    }
+    private void CloseChest()
+    {
+        chestOpen.SetActive(false);
+        chestClose.SetActive(true);
+    }
+
     private void OnDisable()
     {
         OnDespawn();
@@ -44,6 +58,7 @@ public class WinPos : MonoBehaviour
     {
         if (manager == null) return;
         manager.onWinGame.RemoveListener(SetOffFirework);
+        manager.onWinGame.AddListener(OpenChest);
     }
     
 }
