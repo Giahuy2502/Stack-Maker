@@ -22,7 +22,7 @@ public class SettingPanel : MonoBehaviour
     public void OnMenuBtn()
     {
         managerUI.OnMenu();
-        manager.ChangeState(GameState.Start);
+        managerLevel.OnRestart();
     }
 
     public void OnRetryBtn()
