@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         {
             return; 
         }
-        if(manager.State != GameState.Playing)
+        if(manager.State == GameState.Start)
         {
             return;
         }
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f && manager.State == GameState.Playing)
             {
                 transform.position = targetPos;
                 isMoving = false;
