@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +17,7 @@ public class LevelManager : MonoBehaviour
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public static LevelManager Instance { get; private set; }
     private GameManager manager => GameManager.Instance;
+    private DataManager data => DataManager.Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,6 +30,8 @@ public class LevelManager : MonoBehaviour
 
     public void OnInit()
     {
+        currentLevel = data.Level;
+        data.AddScore(-data.Score);
         player.OnDespawn();
         player.OnInit();
     }

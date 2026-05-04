@@ -7,6 +7,8 @@ public class Brick : MonoBehaviour
 {
     [SerializeField] private GameObject brick;
     
+    private DataManager data => DataManager.Instance;
+    
     bool isTaken = false;
 
     private void OnEnable()
@@ -36,6 +38,7 @@ public class Brick : MonoBehaviour
         {
             brick.SetActive(false);
             other.GetComponent<Player>().AddBrick();
+            data.AddScore(1);
             isTaken = true;
         }
     }

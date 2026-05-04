@@ -24,9 +24,13 @@ public class Player : MonoBehaviour
     private string animName = "idle";
     private GameManager manager => GameManager.Instance;
 
-    private void Start()
+    private void Awake()
     {
         rotation = model.transform.rotation.eulerAngles;
+    }
+
+    private void Start()
+    {
         OnInit();
     }
 

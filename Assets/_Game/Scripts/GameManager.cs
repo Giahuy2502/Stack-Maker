@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         OnInit();
+        levelManager.OnInit();
         levelManager.LoadLevel(levelManager.CurrentLevel);
     }
 
