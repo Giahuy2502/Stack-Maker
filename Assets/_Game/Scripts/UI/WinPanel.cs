@@ -9,16 +9,17 @@ public class WinPanel : MonoBehaviour
     [SerializeField] private Button nextButton;
     
     private GameManager manager=> GameManager.Instance;
+    private UIManager uiManager => UIManager.Instance;
 
     public void OnRestart()
     {
+        uiManager.OnPlayGame();
         manager.Restart();
-        gameObject.SetActive(false);
     }
 
     public void OnNext()
     {
+        uiManager.OnPlayGame();
         manager.NextLevel();
-        gameObject.SetActive(false);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using MyNamespace;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class LevelManager : MonoBehaviour
     private Dictionary<Vector3Int, GameObject> spawnedTiles = new Dictionary<Vector3Int, GameObject>();
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public static LevelManager Instance { get; private set; }
+    private GameManager manager => GameManager.Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -91,6 +93,7 @@ public class LevelManager : MonoBehaviour
     {
         OnDespawn();
         LoadLevel(currentLevel);
+        manager.ChangeState(GameState.Playing);
         OnInit();
         OnPlay();
     }
@@ -99,6 +102,7 @@ public class LevelManager : MonoBehaviour
     {
         OnDespawn();
         LoadLevel(currentLevel);
+        manager.ChangeState(GameState.Playing);
         OnInit();
         OnPlay();
     }
