@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour
 {
     [SerializeField] private int score;
     [SerializeField] private int level;
+    [SerializeField] private int maxLevel;
     
     public int Score => score;
     public int Level => level;
@@ -34,7 +35,14 @@ public class DataManager : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        this.level = level;
+        if (level >= maxLevel)
+        {
+            this.level = maxLevel;
+        }
+        else
+        {
+            this.level = level;
+        }
     }
 
     public void SaveData()

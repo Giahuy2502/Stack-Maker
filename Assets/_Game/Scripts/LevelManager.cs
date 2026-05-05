@@ -106,8 +106,8 @@ public class LevelManager : MonoBehaviour
     public void OnNext()
     {
         OnDespawn();
-        LoadLevel(currentLevel+1);
         data.SetLevel(currentLevel+1); // lưu level mới
+        LoadLevel(data.Level);
         data.SaveData();
         OnInit();
         OnPlay();

@@ -15723,6 +15723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   level: 1
+  maxLevel: 2
 --- !u!4 &2101594897
 Transform:
   m_ObjectHideFlags: 0
