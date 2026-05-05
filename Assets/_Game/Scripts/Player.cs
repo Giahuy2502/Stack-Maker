@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
     {
         if (stack.Count <= 0)
         {
-            // thua cuộc 
+            manager.OnLoseGame();
             return;
         }
         GameObject brick = stack.Pop();

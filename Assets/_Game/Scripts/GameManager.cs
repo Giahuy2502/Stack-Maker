@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     
     public void OnLoseGame()
     {
-        
+        uiManager.OnLose();
     }
 
     public void Restart()
