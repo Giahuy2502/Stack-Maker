@@ -29,6 +29,6 @@ public class SettingPanel : MonoBehaviour
     public void OnRetryBtn()
     {
         managerUI.OnPlayGame();
-        managerLevel.OnNext();
+        managerLevel.OnRestart();
     }
 }
