@@ -7021,6 +7021,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2906376207215135775, guid: 58ce73e0b50a34b48ba0a5f298d2088d, type: 3}
   m_PrefabInstance: {fileID: 987731797}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &989922532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989922534}
+  - component: {fileID: 989922533}
+  m_Layer: 0
+  m_Name: BrickPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &989922533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989922532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6750f43e599a18f4dba8a1eeb301ef14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickPrefab: {fileID: 7024060051115977341, guid: 61cf08f3164691446bd4eb8e444d5102, type: 3}
+  poolSize: 10
+--- !u!4 &989922534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989922532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &990107700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2984233184694384668, guid: 61cf08f3164691446bd4eb8e444d5102, type: 3}
@@ -10005,13 +10051,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 95019447627564878}
-  speed: 7
+  speed: 10
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
   model: {fileID: 1316371841037096}
-  brickPrefab: {fileID: 7024060051115977341, guid: 61cf08f3164691446bd4eb8e444d5102, type: 3}
   brickHeight: {x: 0, y: 0.3, z: 0}
+  brickPool: {fileID: 989922533}
 --- !u!54 &1380443428
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14626,7 +14672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1900417441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66982,3 +67028,4 @@ SceneRoots:
   - {fileID: 1680844272}
   - {fileID: 1787837529}
   - {fileID: 2101594897}
+  - {fileID: 989922534}

@@ -58,7 +58,7 @@ public class WinPos : MonoBehaviour
     {
         if (manager == null) return;
         manager.onWinGame.RemoveListener(SetOffFirework);
-        manager.onWinGame.AddListener(OpenChest);
+        manager.onWinGame.RemoveListener(OpenChest);
     }
     
 }
