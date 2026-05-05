@@ -30,31 +30,23 @@ public class Corner : MonoBehaviour
     {
         isTaken = false;
         brick.SetActive(true);
-        SetToRoad();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isTaken)
+        if (other.CompareTag("Player"))
         {
-            brick.SetActive(false);
-            other.GetComponent<Player>().AddBrick();
-            data.AddScore(1);
-            isTaken = true;
             anim.SetTrigger("take");
-            SetToWall();
+            if (!isTaken)
+            {
+                brick.SetActive(false);
+                other.GetComponent<Player>().AddBrick();
+                data.AddScore(1);
+                isTaken = true;
+            }
         }
+        
     }
-
-    private void SetToWall()
-    {
-        this.tag = "Wall";
-        gameObject.layer = LayerMask.NameToLayer("Wall");
-    }
-    private void SetToRoad()
-    {
-        this.tag = "Untagged";
-        gameObject.layer = LayerMask.NameToLayer("Default");
-    }
+    
     
 }
