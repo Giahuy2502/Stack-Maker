@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
     private string animName = "idle";
+    private bool isStartPlay = false;
     private GameManager manager => GameManager.Instance;
 
     private void Awake()
@@ -43,11 +44,12 @@ public class Player : MonoBehaviour
         transform.position = Vector3.zero;
         RotateModel(rotation);
         ChangeAnim("idle");
+        isStartPlay = false;
         //
         manager.onWinGame.AddListener(RemoveAllBrick);
         manager.onWinGame.AddListener(RotateToChess);
         manager.onWinGame.AddListener(ChangeWinAnim);
-        Debug.Log("player Oninit.....");
+        // Debug.Log("player Oninit.....");
     }
     public void Update()
     {
@@ -66,13 +68,16 @@ public class Player : MonoBehaviour
                 manager.ChangeState(GameState.Playing);
             }
             startPos = Input.mousePosition;
+            if (!isStartPlay)
+            {
+                isStartPlay = true;
+            }
         }
         if (Input.GetMouseButtonUp(0) && !isMoving)
         {
             endPos = Input.mousePosition;
             direct = GetDirect(startPos, endPos);
             isMoving = true;
-            Debug.Log("player Start Move.....");
             Move(direct);
         }
 
@@ -140,10 +145,10 @@ public class Player : MonoBehaviour
     }
     public void AddBrick()
     {
-        if (manager.State != GameState.Playing)
-        {
-            return;
-        }
+        // if (manager.State != GameState.Playing)
+        // {
+        //     return;
+        // }
         // sinh brick mới bên dưới -> nên sử dụng object pooling
         GameObject newBrick = Instantiate(brickPrefab, transform.position, Quaternion.identity);
         newBrick.transform.SetParent(this.transform);
@@ -183,8 +188,11 @@ public class Player : MonoBehaviour
     }
     public void ChangeAnim(String animName)
     {
-        if (this.animName == animName) return;
-        Debug.Log("ChangeAnim: "+ animName);
+        if (!isStartPlay)
+        {
+            return;
+        }
+        // Debug.Log("ChangeAnim: "+ animName);
         this.animName = animName;
         anim.SetTrigger(this.animName);
     }

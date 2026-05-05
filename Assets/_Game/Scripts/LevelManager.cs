@@ -65,7 +65,7 @@ public class LevelManager : MonoBehaviour
 
     public void OnPlay()
     {
-        
+        manager.ChangeState(GameState.Playing);
     }
 
     public void OnPause()
@@ -82,6 +82,7 @@ public class LevelManager : MonoBehaviour
     {
         // xoa map hien tai
         ClearCurrentMap();
+        manager.ChangeState(GameState.Start);
     }
 
     public void OnWin()
@@ -98,7 +99,6 @@ public class LevelManager : MonoBehaviour
     {
         OnDespawn();
         LoadLevel(currentLevel);
-        manager.ChangeState(GameState.Playing);
         OnInit();
         OnPlay();
     }
@@ -109,7 +109,6 @@ public class LevelManager : MonoBehaviour
         LoadLevel(currentLevel+1);
         data.SetLevel(currentLevel+1); // lưu level mới
         data.SaveData();
-        manager.ChangeState(GameState.Playing);
         OnInit();
         OnPlay();
     }
