@@ -55,9 +55,12 @@ public class LevelManager : MonoBehaviour
                 Vector3 worldPos = tData.position;
                 worldPos.y = 0;
                 var newTile = Instantiate(prefab, worldPos, Quaternion.Euler(tData.rotation), mapContainer);
-                Vector3Int gridPos = Vector3Int.FloorToInt(tData.position); 
-                if (!spawnedTiles.ContainsKey(gridPos)) 
+                Vector3Int gridPos = Vector3Int.FloorToInt(tData.position);
+                if (!spawnedTiles.ContainsKey(gridPos))
+                {
                     spawnedTiles.Add(gridPos, newTile);
+                }
+                    
             }
         }
         Debug.Log($"<color=yellow>Đã Load thành công: {data.levelName}</color>");

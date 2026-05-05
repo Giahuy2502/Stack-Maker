@@ -19,7 +19,8 @@ public class Editor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) currentTileIndex = 1;
         if (Input.GetKeyDown(KeyCode.Alpha3)) currentTileIndex = 2;
         if (Input.GetKeyDown(KeyCode.Alpha4)) currentTileIndex = 3;
-        if (Input.GetKeyDown(KeyCode.Alpha5)) currentTileIndex = -1;
+        if (Input.GetKeyDown(KeyCode.Alpha5)) currentTileIndex = 4;
+        if (Input.GetKeyDown(KeyCode.Alpha0)) currentTileIndex = -1;
         
         if (Input.GetMouseButton(0)) 
         {
