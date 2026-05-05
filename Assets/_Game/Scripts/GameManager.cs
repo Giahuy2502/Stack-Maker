@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         OnInit();
         levelManager.OnInit();
         levelManager.LoadLevel(levelManager.CurrentLevel);
+        uiManager.OnInit();
     }
 
     private void OnInit()

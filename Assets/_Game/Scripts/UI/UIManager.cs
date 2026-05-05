@@ -19,13 +19,9 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
     }
+    
 
-    private void Start()
-    {
-        OnInit();
-    }
-
-    private void OnInit()
+    public void OnInit()
     {
         OnMenu();
     }
