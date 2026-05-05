@@ -10488,7 +10488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 95019447627564878}
-  speed: 10
+  speed: 12
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -23284,6 +23284,7 @@ MonoBehaviour:
   fireworks:
   - {fileID: 1967734567035597751}
   - {fileID: 9057564663113817635}
+  target: {fileID: 0}
   chestClose: {fileID: 0}
   chestOpen: {fileID: 0}
 --- !u!137 &137628436301773274

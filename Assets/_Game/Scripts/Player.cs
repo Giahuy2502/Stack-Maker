@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private Vector3 startPos, endPos, targetPos,raycastDirect,rotation;
     private Direct direct;
     private bool isMoving = false;
+    private bool isAddBrick = false;
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
     private string animName = "idle";
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     public void OnInit()
     {
         isMoving = false;
+        isAddBrick = false;
         startPos = transform.position;
         endPos = transform.position;
         RemoveAllBrick();
@@ -62,7 +64,6 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
             startPos = Input.mousePosition;
-            ChangeAnim("jump");
         }
         if (Input.GetMouseButtonUp(0) && !isMoving)
         {
@@ -79,7 +80,15 @@ public class Player : MonoBehaviour
             {
                 transform.position = targetPos;
                 isMoving = false;
-                ChangeAnim("idle");
+                if (isAddBrick)
+                {
+                    ChangeAnim("jump");
+                    isAddBrick = false;
+                }
+                else
+                {
+                    ChangeAnim("idle");
+                }
             }
         }
         
@@ -148,6 +157,7 @@ public class Player : MonoBehaviour
         stack.Push(newBrick);
         // cho nhân vật nhảy lên
         model.transform.position = transform.position + brickHeight * stack.Count;
+        isAddBrick = true;
     }
     public void RemoveBrick()
     {
