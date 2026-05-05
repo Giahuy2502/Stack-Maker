@@ -55,16 +55,12 @@ public class Player : MonoBehaviour
         {
             return; 
         }
-        if(manager.State == GameState.Start)
+        if(manager.State != GameState.Playing)
         {
             return;
         }
         if (Input.GetMouseButtonDown(0) && !isMoving)
         {
-            if (manager.State != GameState.Playing)
-            {
-                manager.ChangeState(GameState.Playing);
-            }
             startPos = Input.mousePosition;
             ChangeAnim("jump");
         }

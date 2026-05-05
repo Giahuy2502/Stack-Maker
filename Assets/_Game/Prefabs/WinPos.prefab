@@ -10016,6 +10016,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1599512746464061289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4492791908942712145}
+  m_Layer: 0
+  m_Name: target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4492791908942712145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599512746464061289}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0.75, z: 5.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1313705709746142588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776856934212265560
 GameObject:
   m_ObjectHideFlags: 0
@@ -23021,6 +23052,7 @@ Transform:
   - {fileID: 7252107710378033599}
   - {fileID: 2721053256100120848}
   - {fileID: 1592746508272617663}
+  - {fileID: 4492791908942712145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4642276953171010348
@@ -36612,6 +36644,7 @@ MonoBehaviour:
   fireworks:
   - {fileID: 8670001192711489513}
   - {fileID: 2210751873167026813}
+  target: {fileID: 4492791908942712145}
   chestClose: {fileID: 8176492384716876028}
   chestOpen: {fileID: 6885915987710569315}
 --- !u!1 &7259936784258322480

@@ -6,6 +6,7 @@ using UnityEngine;
 public class WinPos : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] fireworks;
+    [SerializeField] private Transform target;
     [SerializeField] private GameObject chestClose,chestOpen;
     private GameManager manager => GameManager.Instance;
 
@@ -27,6 +28,7 @@ public class WinPos : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             manager.OnWinGame();
+            other.transform.position = target.position;
         }
     }
 
