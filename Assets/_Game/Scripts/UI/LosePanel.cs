@@ -13,12 +13,14 @@ public class LosePanel : MonoBehaviour
     private LevelManager levelManager => LevelManager.Instance;
     public void OnRestart()
     {
+        levelManager.OnContinue();
         uiManager.OnPlayGame();
         manager.Restart();
     }
     public void OnMenuBtn()
     {
         uiManager.OnMenu();
+        levelManager.OnContinue();
         levelManager.OnRestart();
         manager.ChangeState(GameState.Start);
     }
