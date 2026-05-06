@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
+            ChangeAnim("idle");
             if (Vector3.Distance(transform.position, targetPos) < 0.1f && manager.State == GameState.Playing)
             {
                 transform.position = targetPos;
@@ -84,10 +85,6 @@ public class Player : MonoBehaviour
                 {
                     ChangeAnim("jump");
                     isAddBrick = false;
-                }
-                else
-                {
-                    ChangeAnim("idle");
                 }
             }
         }
@@ -186,6 +183,10 @@ public class Player : MonoBehaviour
     }
     public void ChangeAnim(String animName)
     {
+        if (this.animName == animName)
+        {
+            return;
+        }
         // Debug.Log("ChangeAnim: "+ animName);
         this.animName = animName;
         anim.SetTrigger(this.animName);
