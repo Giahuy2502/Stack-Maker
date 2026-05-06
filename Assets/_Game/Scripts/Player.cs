@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
     }
     public void AddBrick()
     {
-        var newBrick = brickPool.GetBrick();
+        var newBrick = brickPool.GetFromPool();
         newBrick.transform.SetParent(this.transform);
         newBrick.transform.position = transform.position + brickHeight * stack.Count;
         stack.Push(newBrick);
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
             return;
         }
         GameObject brick = stack.Pop();
-        brickPool.ReturnBrick(brick);
+        brickPool.ReturnToPool(brick);
         model.transform.localPosition = brickHeight * stack.Count;
         ChangeAnim("idle");
     }
@@ -142,7 +142,7 @@ public class Player : MonoBehaviour
         while(stack.Count > 0)
         {
             GameObject brick = stack.Pop();
-            brickPool.ReturnBrick(brick);
+            brickPool.ReturnToPool(brick);
             model.transform.localPosition = brickHeight * stack.Count;
         }
         isMoving = false;

@@ -13,7 +13,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int currentLevel = 1;
     
     [SerializeField] private Player player;
-    private Dictionary<Vector3Int, GameObject> spawnedTiles = new Dictionary<Vector3Int, GameObject>();
+    
+    [SerializeField] private List<Pool> pools;
+    private Dictionary<Vector3Int, (GameObject obj, int tileID)> spawnedTiles = new Dictionary<Vector3Int, (GameObject obj, int tileID)>();
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public static LevelManager Instance { get; private set; }
     private GameManager manager => GameManager.Instance;
@@ -54,11 +56,16 @@ public class LevelManager : MonoBehaviour
                 GameObject prefab = tileCollection.Tiles[tData.tileID].prefab;
                 Vector3 worldPos = tData.position;
                 worldPos.y = 0;
-                var newTile = Instantiate(prefab, worldPos, Quaternion.Euler(tData.rotation), mapContainer);
+                int tileId = tData.tileID;
+                Pool pool = pools[tileId];
+                var newTile = pool.GetFromPool();
+                newTile.transform.position = worldPos;
+                newTile.transform.parent = mapContainer;
+                newTile.transform.rotation = Quaternion.Euler(tData.rotation);
                 Vector3Int gridPos = Vector3Int.FloorToInt(tData.position);
                 if (!spawnedTiles.ContainsKey(gridPos))
                 {
-                    spawnedTiles.Add(gridPos, newTile);
+                    spawnedTiles.Add(gridPos, (newTile, tData.tileID));
                 }
                     
             }
@@ -120,8 +127,10 @@ public class LevelManager : MonoBehaviour
     {
         foreach (var item in spawnedTiles)
         {
-            Destroy(item.Value);
+            int tileID = item.Value.tileID;
+            pools[tileID].ReturnToPool(item.Value.obj);
         }
         spawnedTiles.Clear();
     }
+    
 }
