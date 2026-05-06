@@ -22,6 +22,7 @@ public class SettingPanel : MonoBehaviour
     public void OnMenuBtn()
     {
         managerUI.OnMenu();
+        managerLevel.OnContinue();
         managerLevel.OnRestart();
         manager.ChangeState(GameState.Start);
     }
@@ -29,6 +30,7 @@ public class SettingPanel : MonoBehaviour
     public void OnRetryBtn()
     {
         managerUI.OnPlayGame();
+        managerLevel.OnContinue();
         managerLevel.OnRestart();
     }
 }

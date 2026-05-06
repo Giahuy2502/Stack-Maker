@@ -73,12 +73,12 @@ public class LevelManager : MonoBehaviour
 
     public void OnPause()
     {
-        
+        Time.timeScale = 0f;
     }
 
     public void OnContinue()
     {
-        
+        Time.timeScale = 1f;
     }
 
     public void OnDespawn()
