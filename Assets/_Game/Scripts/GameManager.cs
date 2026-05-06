@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameState State => state;
     private UIManager uiManager => UIManager.Instance;
     private LevelManager levelManager => LevelManager.Instance;
+    private DataManager dataManager => DataManager.Instance;
 
     public UnityEvent onWinGame;
     private void Awake()
@@ -76,5 +77,13 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         state = newState;
+    }
+
+    public void NewGame()
+    {
+        OnDespawn();
+        OnInit();
+        dataManager.ResetLevel();
+        levelManager.OnRestart();
     }
 }

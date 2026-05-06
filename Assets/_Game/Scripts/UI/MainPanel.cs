@@ -30,6 +30,13 @@ public class MainPanel : MonoBehaviour
         managerUI.OnPlayGame();
     }
 
+    public void OnNewGame()
+    {
+        manager.NewGame();
+        manager.ChangeState(GameState.Playing);
+        managerUI.OnPlayGame();
+    }
+
     private void OnDespawn()
     {
         

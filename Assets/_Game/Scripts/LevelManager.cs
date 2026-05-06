@@ -101,7 +101,7 @@ public class LevelManager : MonoBehaviour
     public void OnRestart()
     {
         OnDespawn();
-        LoadLevel(currentLevel);
+        LoadLevel(data.Level);
         OnInit();
         OnPlay();
     }
