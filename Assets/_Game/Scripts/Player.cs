@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using MyNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -53,9 +54,9 @@ public class Player : MonoBehaviour
     }
     public void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) 
+        if (IsClickToUI())
         {
-            return; 
+            return;
         }
         if(manager.State != GameState.Playing)
         {
@@ -213,5 +214,17 @@ public class Player : MonoBehaviour
         manager.onWinGame.RemoveListener(RemoveAllBrick);
         manager.onWinGame.RemoveListener(RotateToChess);
         manager.onWinGame.RemoveListener(ChangeWinAnim);
+    }
+
+    private bool IsClickToUI()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
