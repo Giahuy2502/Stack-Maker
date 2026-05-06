@@ -17,14 +17,18 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 brickHeight;
     [SerializeField] private BrickPool brickPool;
     
-    private Vector3 startPos, endPos, targetPos,raycastDirect,rotation;
-    private Direct direct;
+    private Vector3 targetPos,raycastDirect,rotation;
     private bool isMoving = false;
     private bool isAddBrick = false;
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
     private string animName = "idle";
     private GameManager manager => GameManager.Instance;
+    private InputManager input => InputManager.Instance;
+    public bool IsMoving
+    {
+        get => isMoving;
+    }
 
     private void Awake()
     {
@@ -40,40 +44,17 @@ public class Player : MonoBehaviour
     {
         isMoving = false;
         isAddBrick = false;
-        startPos = transform.position;
-        endPos = transform.position;
+        input.OnInit();
         RemoveAllBrick();
         transform.position = Vector3.zero;
         RotateModel(rotation);
         ChangeAnim("idle");
-        //
         manager.onWinGame.AddListener(RemoveAllBrick);
         manager.onWinGame.AddListener(RotateToChess);
         manager.onWinGame.AddListener(ChangeWinAnim);
-        // Debug.Log("player Oninit.....");
     }
     public void Update()
     {
-        if (IsClickToUI())
-        {
-            return;
-        }
-        if(manager.State != GameState.Playing)
-        {
-            return;
-        }
-        if (Input.GetMouseButtonDown(0) && !isMoving)
-        {
-            startPos = Input.mousePosition;
-        }
-        if (Input.GetMouseButtonUp(0) && !isMoving)
-        {
-            endPos = Input.mousePosition;
-            direct = GetDirect(startPos, endPos);
-            isMoving = true;
-            Move(direct);
-        }
-
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
@@ -91,18 +72,7 @@ public class Player : MonoBehaviour
         }
         
     }
-    private Direct GetDirect(Vector3 startPos, Vector3 endPos)
-    {
-        Vector3 direction = (endPos - startPos).normalized;
-        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            return direction.x > 0 ? Direct.Right : Direct.Left;
-        }
-        else
-        {
-            return direction.y > 0 ? Direct.Forward : Direct.Back;
-        }
-    }
+   
     private Vector3 GetTargetPos(Direct direct)
     {
         RaycastHit hitInfo;
@@ -135,26 +105,20 @@ public class Player : MonoBehaviour
 
         return transform.position;
     }
-    private void Move(Direct direct)
+    public void Move(Direct direct)
     {
+        isMoving = true;
         targetPos = GetTargetPos(direct);
         offset = Vector3.zero;
         
     }
     public void AddBrick()
     {
-        // if (manager.State != GameState.Playing)
-        // {
-        //     return;
-        // }
-        // sinh brick mới bên dưới -> nên sử dụng object pooling
-        // GameObject newBrick = Instantiate(brickPrefab, transform.position, Quaternion.identity);
         var newBrick = brickPool.GetBrick();
         newBrick.transform.SetParent(this.transform);
         newBrick.transform.position = transform.position + brickHeight * stack.Count;
         stack.Push(newBrick);
-        // cho nhân vật nhảy lên
-        model.transform.position = transform.position + brickHeight * stack.Count;
+        model.transform.localPosition = brickHeight * stack.Count;
         isAddBrick = true;
     }
     public void RemoveBrick()
@@ -166,7 +130,7 @@ public class Player : MonoBehaviour
         }
         GameObject brick = stack.Pop();
         brickPool.ReturnBrick(brick);
-        model.transform.position = transform.position + brickHeight * stack.Count;
+        model.transform.localPosition = brickHeight * stack.Count;
         ChangeAnim("idle");
     }
     public void RemoveAllBrick()
@@ -179,8 +143,9 @@ public class Player : MonoBehaviour
         {
             GameObject brick = stack.Pop();
             brickPool.ReturnBrick(brick);
-            model.transform.position = transform.position + brickHeight * stack.Count;
+            model.transform.localPosition = brickHeight * stack.Count;
         }
+        isMoving = false;
     }
     public void ChangeAnim(String animName)
     {
@@ -188,7 +153,6 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        // Debug.Log("ChangeAnim: "+ animName);
         this.animName = animName;
         anim.SetTrigger(this.animName);
     }
@@ -214,17 +178,5 @@ public class Player : MonoBehaviour
         manager.onWinGame.RemoveListener(RemoveAllBrick);
         manager.onWinGame.RemoveListener(RotateToChess);
         manager.onWinGame.RemoveListener(ChangeWinAnim);
-    }
-
-    private bool IsClickToUI()
-    {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }
