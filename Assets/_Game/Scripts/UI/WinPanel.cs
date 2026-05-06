@@ -27,13 +27,13 @@ public class WinPanel : MonoBehaviour
 
     public void OnRestart()
     {
-        uiManager.OnPlayGame();
         manager.Restart();
+        uiManager.OnPlayGame();
     }
 
     public void OnNext()
     {
-        uiManager.OnPlayGame();
         manager.NextLevel();
+        uiManager.OnPlayGame();
     }
 }
