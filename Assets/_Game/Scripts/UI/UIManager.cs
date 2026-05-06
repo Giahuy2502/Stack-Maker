@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SettingPanel settingPanel;
     [SerializeField] private GamePlayPanel gamePlayPanel;
     [SerializeField] private LosePanel losePanel;
+    [SerializeField] private LoadingPanel loadingPanel;
     public static UIManager Instance { get; private set; }
     private void Awake()
     {
@@ -24,7 +25,17 @@ public class UIManager : MonoBehaviour
 
     public void OnInit()
     {
-        OnMenu();
+        OnLoading();
+    }
+
+    public void OnLoading()
+    {
+        winPanel.gameObject.SetActive(false);
+        mainPanel.gameObject.SetActive(false);
+        settingPanel.gameObject.SetActive(false);
+        gamePlayPanel.gameObject.SetActive(false);
+        losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(true);
     }
 
     public void OnMenu()
@@ -34,6 +45,7 @@ public class UIManager : MonoBehaviour
         settingPanel.gameObject.SetActive(false);
         gamePlayPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
     }
 
     public void OnWin()
@@ -43,6 +55,7 @@ public class UIManager : MonoBehaviour
         settingPanel.gameObject.SetActive(false);
         gamePlayPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
     }
 
     public void OnPlayGame()
@@ -52,6 +65,7 @@ public class UIManager : MonoBehaviour
         settingPanel.gameObject.SetActive(false);
         gamePlayPanel.gameObject.SetActive(true);
         losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
     }
 
     public void OnSetting()
@@ -61,6 +75,7 @@ public class UIManager : MonoBehaviour
         settingPanel.gameObject.SetActive(true);
         gamePlayPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
     }
 
     public void OnLose()
@@ -70,6 +85,7 @@ public class UIManager : MonoBehaviour
         settingPanel.gameObject.SetActive(false);
         gamePlayPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(true);
+        loadingPanel.gameObject.SetActive(false);
     }
     private void OnDespawn()
     {
@@ -77,6 +93,8 @@ public class UIManager : MonoBehaviour
         mainPanel.gameObject.SetActive(false);
         settingPanel.gameObject.SetActive(false);
         gamePlayPanel.gameObject.SetActive(false);
+        losePanel.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
     }
 
 }
