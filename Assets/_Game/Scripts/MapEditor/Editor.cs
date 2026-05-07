@@ -8,7 +8,6 @@ public class Editor : MonoBehaviour
 {
     [SerializeField] private TileCollection tileCollection;
     [SerializeField] private Transform mapContainer;
-    [SerializeField] private Grid grid;
     [SerializeField] private string currentLevelName = "1";
     private Dictionary<Vector3Int, GameObject> spawnedTiles = new Dictionary<Vector3Int, GameObject>();
     private int currentTileIndex = -1;
@@ -54,7 +53,7 @@ public class Editor : MonoBehaviour
             Destroy(spawnedTiles[gridPos]);
             spawnedTiles.Remove(gridPos);
         }
-        Vector3 spawnWorldPos = grid.GetCellCenterWorld(gridPos);
+        Vector3 spawnWorldPos = gridPos;
         spawnWorldPos.y = 0;
         GameObject prefab = tileCollection.Tiles[index].prefab;
         GameObject newTile = Instantiate(prefab, spawnWorldPos, Quaternion.identity, mapContainer);
@@ -85,7 +84,7 @@ public class Editor : MonoBehaviour
         if (groundPlane.Raycast(ray, out float enter))
         {
             Vector3 worldPoint = ray.GetPoint(enter);
-            return grid.WorldToCell(worldPoint);
+            return Vector3Int.RoundToInt(worldPoint);
         }
         return Vector3Int.zero;
     }
@@ -139,7 +138,7 @@ public class Editor : MonoBehaviour
                 Vector3 worldPos = tData.position;
                 worldPos.y = 0;
                 GameObject newTile = Instantiate(prefab, worldPos, Quaternion.Euler(tData.rotation), mapContainer);
-                Vector3Int gridPos = Vector3Int.FloorToInt(tData.position); 
+                Vector3Int gridPos = Vector3Int.RoundToInt(tData.position); 
                 if (!spawnedTiles.ContainsKey(gridPos)) 
                     spawnedTiles.Add(gridPos, newTile);
             }
