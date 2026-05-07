@@ -11,6 +11,10 @@ public class InputManager : MonoBehaviour
     private GameManager manager => GameManager.Instance;
     private Vector3 startPos, endPos;
     private Direct direct;
+    public Direct Direct
+    {
+        get => direct;
+    }
     public static InputManager Instance { get; private set; }
     private void Awake()
     {

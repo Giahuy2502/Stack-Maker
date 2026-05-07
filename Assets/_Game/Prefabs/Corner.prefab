@@ -162,6 +162,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brick: {fileID: 3515104610731632642}
   anim: {fileID: 2510152247169957056}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  directCanTurn: 
 --- !u!65 &5379414240468574382
 BoxCollider:
   m_ObjectHideFlags: 0
