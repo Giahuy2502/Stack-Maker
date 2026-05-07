@@ -37,11 +37,13 @@ public class GameManager : MonoBehaviour
     private void OnInit()
     {
         state = GameState.Start;
+        onWinGame.AddListener(uiManager.DisaleGamePlayPanel);
     }
 
     private void OnDespawn()
     {
         state = GameState.End;
+        onWinGame.RemoveListener(uiManager.DisaleGamePlayPanel);
     }
     public void OnWinGame()
     {

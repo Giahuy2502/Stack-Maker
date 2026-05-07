@@ -97,4 +97,9 @@ public class UIManager : MonoBehaviour
         loadingPanel.gameObject.SetActive(false);
     }
 
+    public void DisaleGamePlayPanel()
+    {
+        gamePlayPanel.gameObject.SetActive(false);
+    }
+
 }
