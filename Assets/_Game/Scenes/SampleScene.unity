@@ -681,9 +681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  onWinGame:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &390957905
 Transform:
   m_ObjectHideFlags: 0
@@ -1789,6 +1786,9 @@ MonoBehaviour:
   - {fileID: 197841701}
   - {fileID: 341788336}
   - {fileID: 1457703630}
+  onWinGame:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &816720744
 Transform:
   m_ObjectHideFlags: 0
@@ -4132,7 +4132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1571541263
 RectTransform:
   m_ObjectHideFlags: 0
