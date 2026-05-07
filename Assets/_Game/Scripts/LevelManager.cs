@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using MyNamespace;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
     private GameManager manager => GameManager.Instance;
     private DataManager data => DataManager.Instance;
+    public UnityEvent onWinGame;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -90,19 +92,18 @@ public class LevelManager : MonoBehaviour
 
     public void OnDespawn()
     {
-        // xoa map hien tai
         ClearCurrentMap();
         manager.ChangeState(GameState.Start);
     }
 
     public void OnWin()
     {
-        
+        onWinGame?.Invoke();
     }
 
     public void OnLose()
     {
-        
+        OnPause();
     }
 
     public void OnRestart()

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager => LevelManager.Instance;
     private DataManager dataManager => DataManager.Instance;
 
-    public UnityEvent onWinGame;
+    // public UnityEvent onWinGame;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,18 +37,17 @@ public class GameManager : MonoBehaviour
     private void OnInit()
     {
         state = GameState.Start;
-        onWinGame.AddListener(uiManager.DisaleGamePlayPanel);
     }
 
     private void OnDespawn()
     {
         state = GameState.End;
-        onWinGame.RemoveListener(uiManager.DisaleGamePlayPanel);
     }
     public void OnWinGame()
     {
         state = GameState.Win;
-        onWinGame?.Invoke();
+        uiManager.DisaleGamePlayPanel();
+        levelManager.OnWin();
         Invoke(nameof(CallWinUI),2.6f);
     }
 
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
     
     public void OnLoseGame()
     {
-        levelManager.OnPause();
+        levelManager.OnLose();
         uiManager.OnLose();
     }
 

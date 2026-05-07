@@ -21,7 +21,7 @@ public class LosePanel : MonoBehaviour
     {
         uiManager.OnMenu();
         levelManager.OnContinue();
-        levelManager.OnRestart();
+        manager.Restart();
         manager.ChangeState(GameState.Start);
     }
 }

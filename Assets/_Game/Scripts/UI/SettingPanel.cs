@@ -23,7 +23,7 @@ public class SettingPanel : MonoBehaviour
     {
         managerUI.OnMenu();
         managerLevel.OnContinue();
-        managerLevel.OnRestart();
+        manager.Restart();
         manager.ChangeState(GameState.Start);
     }
 
@@ -31,6 +31,6 @@ public class SettingPanel : MonoBehaviour
     {
         managerUI.OnPlayGame();
         managerLevel.OnContinue();
-        managerLevel.OnRestart();
+        manager.Restart();
     }
 }

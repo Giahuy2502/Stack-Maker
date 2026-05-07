@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
     private string animName = "idle";
-    private GameManager manager => GameManager.Instance;
+    private LevelManager levelManager => LevelManager.Instance;
+    private GameManager gameManager => GameManager.Instance;
     private InputManager input => InputManager.Instance;
     public bool IsMoving
     {
@@ -49,9 +50,9 @@ public class Player : MonoBehaviour
         transform.position = Vector3.zero;
         RotateModel(rotation);
         ChangeAnim("idle");
-        manager.onWinGame.AddListener(RemoveAllBrick);
-        manager.onWinGame.AddListener(RotateToChess);
-        manager.onWinGame.AddListener(ChangeWinAnim);
+        levelManager.onWinGame.AddListener(RemoveAllBrick);
+        levelManager.onWinGame.AddListener(RotateToChess);
+        levelManager.onWinGame.AddListener(ChangeWinAnim);
     }
     public void Update()
     {
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
             ChangeAnim("idle");
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f && manager.State == GameState.Playing)
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f && gameManager.State == GameState.Playing)
             {
                 transform.position = targetPos;
                 isMoving = false;
@@ -125,7 +126,7 @@ public class Player : MonoBehaviour
     {
         if (stack.Count <= 0)
         {
-            manager.OnLoseGame();
+            gameManager.OnLoseGame();
             return;
         }
         GameObject brick = stack.Pop();
@@ -175,8 +176,8 @@ public class Player : MonoBehaviour
     }
     public void OnDespawn()
     {
-        manager.onWinGame.RemoveListener(RemoveAllBrick);
-        manager.onWinGame.RemoveListener(RotateToChess);
-        manager.onWinGame.RemoveListener(ChangeWinAnim);
+        levelManager.onWinGame.RemoveListener(RemoveAllBrick);
+        levelManager.onWinGame.RemoveListener(RotateToChess);
+        levelManager.onWinGame.RemoveListener(ChangeWinAnim);
     }
 }
