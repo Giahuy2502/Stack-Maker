@@ -7,13 +7,11 @@ using UnityEngine.UI;
 
 public class WinPanel : MonoBehaviour
 {
-    [SerializeField] private Button restartButton;
-    [SerializeField] private Button nextButton;
     [SerializeField] private TextMeshProUGUI scoreText;
     
-    private GameManager manager=> GameManager.Instance;
-    private UIManager uiManager => UIManager.Instance;
-    private DataManager dataManager => DataManager.Instance;
+    private GameManager GameManager=> GameManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
+    private DataManager DataManager => DataManager.Instance;
 
     private void OnEnable()
     {
@@ -22,18 +20,18 @@ public class WinPanel : MonoBehaviour
 
     private void OnInit()
     {
-        scoreText.text = "SCORE: "+ dataManager.Score;
+        scoreText.text = "SCORE: "+ DataManager.Score;
     }
 
     public void OnRestart()
     {
-        manager.Restart();
-        uiManager.OnPlayGame();
+        GameManager.Restart();
+        UIManager.OnPlayGame();
     }
 
     public void OnNext()
     {
-        manager.NextLevel();
-        uiManager.OnPlayGame();
+        GameManager.NextLevel();
+        UIManager.OnPlayGame();
     }
 }

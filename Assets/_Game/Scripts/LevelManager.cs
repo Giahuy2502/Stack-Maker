@@ -19,9 +19,9 @@ public class LevelManager : MonoBehaviour
     private Dictionary<Vector3Int, (GameObject obj, int tileID)> spawnedTiles = new Dictionary<Vector3Int, (GameObject obj, int tileID)>();
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public static LevelManager Instance { get; private set; }
-    private GameManager manager => GameManager.Instance;
-    private DataManager data => DataManager.Instance;
-    public UnityEvent onWinGame;
+    private GameManager GameManager => GameManager.Instance;
+    private DataManager DataManager => DataManager.Instance;
+    public Action onWinGame;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,9 +34,9 @@ public class LevelManager : MonoBehaviour
 
     public void OnInit()
     {
-        data.OnInit();
-        currentLevel = data.Level;
-        data.AddScore(-data.Score);
+        DataManager.OnInit();
+        currentLevel = DataManager.Level;
+        DataManager.AddScore(-DataManager.Score);
         player.OnDespawn();
         player.OnInit();
     }
@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
 
     public void OnPlay()
     {
-        manager.ChangeState(GameState.Playing);
+        GameManager.ChangeState(GameState.Playing);
     }
 
     public void OnPause()
@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviour
     public void OnDespawn()
     {
         ClearCurrentMap();
-        manager.ChangeState(GameState.Start);
+        GameManager.ChangeState(GameState.Start);
     }
 
     public void OnWin()
@@ -109,7 +109,7 @@ public class LevelManager : MonoBehaviour
     public void OnRestart()
     {
         OnDespawn();
-        LoadLevel(data.Level);
+        LoadLevel(DataManager.Level);
         OnInit();
         OnPlay();
     }
@@ -117,9 +117,9 @@ public class LevelManager : MonoBehaviour
     public void OnNext()
     {
         OnDespawn();
-        data.SetLevel(currentLevel+1); // lưu level mới
-        LoadLevel(data.Level);
-        data.SaveData();
+        DataManager.SetLevel(currentLevel+1); // lưu level mới
+        LoadLevel(DataManager.Level);
+        DataManager.SaveData();
         OnInit();
         OnPlay();
     }

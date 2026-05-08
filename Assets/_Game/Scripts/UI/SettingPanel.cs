@@ -6,31 +6,27 @@ using UnityEngine.UI;
 
 public class SettingPanel : MonoBehaviour
 {
-    [SerializeField] private Button exitBtn;
-    [SerializeField] private Button menuBtn;
-    [SerializeField] private Button retryBtn;
-    
-    private GameManager manager => GameManager.Instance;
-    private LevelManager managerLevel => LevelManager.Instance;
-    private UIManager managerUI => UIManager.Instance;
+    private GameManager GameManager => GameManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
     public void OnExitBtn()
     {
-        managerUI.OnPlayGame();
-        managerLevel.OnContinue();
+        UIManager.OnPlayGame();
+        LevelManager.OnContinue();
     }
 
     public void OnMenuBtn()
     {
-        managerUI.OnMenu();
-        managerLevel.OnContinue();
-        manager.Restart();
-        manager.ChangeState(GameState.Start);
+        UIManager.OnMenu();
+        LevelManager.OnContinue();
+        GameManager.Restart();
+        GameManager.ChangeState(GameState.Start);
     }
 
     public void OnRetryBtn()
     {
-        managerUI.OnPlayGame();
-        managerLevel.OnContinue();
-        manager.Restart();
+        UIManager.OnPlayGame();
+        LevelManager.OnContinue();
+        GameManager.Restart();
     }
 }

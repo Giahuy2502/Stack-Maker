@@ -23,9 +23,9 @@ public class Player : MonoBehaviour
     private Vector3 offset = new Vector3();
     private Stack<GameObject> stack = new Stack<GameObject>();
     private string animName = "idle";
-    private LevelManager levelManager => LevelManager.Instance;
-    private GameManager gameManager => GameManager.Instance;
-    private InputManager input => InputManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
+    private GameManager GameManager => GameManager.Instance;
+    private InputManager InputManager => InputManager.Instance;
     public bool IsMoving
     {
         get => isMoving;
@@ -45,28 +45,28 @@ public class Player : MonoBehaviour
     {
         isMoving = false;
         isAddBrick = false;
-        input.OnInit();
+        InputManager.OnInit();
         RemoveAllBrick();
         transform.position = Vector3.zero;
         RotateModel(rotation);
-        ChangeAnim("idle");
-        levelManager.onWinGame.AddListener(RemoveAllBrick);
-        levelManager.onWinGame.AddListener(RotateToChess);
-        levelManager.onWinGame.AddListener(ChangeWinAnim);
+        ChangeAnim(Variables.ANIM_IDLE_TAG);
+        LevelManager.onWinGame += RemoveAllBrick;
+        LevelManager.onWinGame += RotateToChess;
+        LevelManager.onWinGame += ChangeWinAnim;
     }
     public void Update()
     {
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * speed);
-            ChangeAnim("idle");
-            if (Vector3.Distance(transform.position, targetPos) < 0.1f && gameManager.State == GameState.Playing)
+            ChangeAnim(Variables.ANIM_IDLE_TAG);
+            if (Vector3.Distance(transform.position, targetPos) < 0.1f && GameManager.State == GameState.Playing)
             {
                 transform.position = targetPos;
                 isMoving = false;
                 if (isAddBrick)
                 {
-                    ChangeAnim("jump");
+                    ChangeAnim(Variables.ANIM_JUMP_TAG);
                     isAddBrick = false;
                 }
             }
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
         }
         if (Physics.Raycast(transform.position, raycastDirect, out hitInfo, Mathf.Infinity, wallLayer))
         {
-            if (hitInfo.collider.CompareTag("Wall"))
+            if (hitInfo.collider.CompareTag(Variables.WALL_TAG))
             {
                 return hitInfo.transform.position + offset;
             }
@@ -126,13 +126,13 @@ public class Player : MonoBehaviour
     {
         if (stack.Count <= 0)
         {
-            gameManager.OnLoseGame();
+            GameManager.OnLoseGame();
             return;
         }
         GameObject brick = stack.Pop();
         brickPool.ReturnToPool(brick);
         model.transform.localPosition = brickHeight * stack.Count;
-        ChangeAnim("idle");
+        ChangeAnim(Variables.ANIM_IDLE_TAG);
     }
     public void RemoveAllBrick()
     {
@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
     }
     private void ChangeWinAnim()
     {
-        ChangeAnim("win");
+        ChangeAnim(Variables.ANIM_WIN_TAG);
     }
     private void OnDisable()
     {
@@ -176,8 +176,8 @@ public class Player : MonoBehaviour
     }
     public void OnDespawn()
     {
-        levelManager.onWinGame.RemoveListener(RemoveAllBrick);
-        levelManager.onWinGame.RemoveListener(RotateToChess);
-        levelManager.onWinGame.RemoveListener(ChangeWinAnim);
+        LevelManager.onWinGame -= RemoveAllBrick;
+        LevelManager.onWinGame -= RotateToChess;
+        LevelManager.onWinGame -= ChangeWinAnim;
     }
 }

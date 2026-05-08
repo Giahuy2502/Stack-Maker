@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private Player player;
-    private GameManager manager => GameManager.Instance;
     private Vector3 startPos, endPos;
     private Direct direct;
     public Direct Direct
@@ -16,6 +15,7 @@ public class InputManager : MonoBehaviour
         get => direct;
     }
     public static InputManager Instance { get; private set; }
+    private GameManager GameManager => GameManager.Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        if(manager.State != GameState.Playing)
+        if(GameManager.State != GameState.Playing)
         {
             return;
         }

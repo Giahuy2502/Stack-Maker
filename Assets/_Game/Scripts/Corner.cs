@@ -10,11 +10,11 @@ public class Corner : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] List<Direct> directCanTurn = new List<Direct>();
-    private DataManager data => DataManager.Instance;
     private Direct redirect;
     private Player player;
     bool isTaken = false;
-    private InputManager input => InputManager.Instance;
+    private InputManager InputManager => InputManager.Instance;
+    private DataManager DataManager => DataManager.Instance;
 
     private void OnEnable()
     {
@@ -41,16 +41,16 @@ public class Corner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Variables.PLAYER_TAG))
         {
             player = other.GetComponent<Player>();
             anim.SetTrigger("take");
-            redirect = GetReDirect(input.Direct);
+            redirect = GetReDirect(InputManager.Direct);
             if (!isTaken)
             {
                 brick.SetActive(false);
                 player.AddBrick();
-                data.AddScore(1);
+                DataManager.AddScore(1);
                 isTaken = true;
             }
         }

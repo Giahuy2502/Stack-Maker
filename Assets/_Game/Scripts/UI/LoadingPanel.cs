@@ -9,7 +9,7 @@ public class LoadingPanel : MonoBehaviour
     [SerializeField] private Image loading;
     [SerializeField] private float loadingTime;
 
-    private UIManager uIManager => UIManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
     private void OnEnable()
     {
         OnInit();
@@ -28,7 +28,7 @@ public class LoadingPanel : MonoBehaviour
             if (loading.fillAmount >= 1f)
             {
                 loading.fillAmount = 1f;
-                uIManager.OnMenu();
+                UIManager.OnMenu();
             }
         }
     }

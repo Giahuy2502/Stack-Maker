@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    [SerializeField] private int score;
-    [SerializeField] private int level;
-    [SerializeField] private int maxLevel;
+    private const string DATA_KEY = "StackMakerDataKey";
+    [SerializeField] private GameData gameData = new GameData();
     
-    public int Score => score;
-    public int Level => level;
+    public int Score => gameData.score;
+    public int Level => gameData.level;
     public static DataManager Instance { get; private set; }
     private void Awake()
     {
@@ -24,38 +23,48 @@ public class DataManager : MonoBehaviour
 
     public void OnInit()
     {
+        Debug.Log("OnInit");
         LoadData();
-        score = 0;
+        gameData.score = 0;
     }
 
     public void AddScore(int scoreToAdd)
     {
-        score += scoreToAdd;
+        gameData.score += scoreToAdd;
     }
 
     public void SetLevel(int level)
     {
-        if (level >= maxLevel)
+        if (level >= gameData.maxLevel)
         {
-            this.level = maxLevel;
+            this.gameData.level = gameData.maxLevel;
         }
         else
         {
-            this.level = level;
+            this.gameData.level = level;
         }
     }
 
     public void SaveData()
     {
-        PlayerPrefs.SetInt("Level", level);
-        Debug.Log("Save Data: level = "+level);
+        var json = JsonUtility.ToJson(gameData);
+        Debug.Log("Save Data: "+json);
+        PlayerPrefs.SetString(DATA_KEY, json);
         PlayerPrefs.Save();
     }
 
     public void LoadData()
     {
-        level = PlayerPrefs.GetInt("Level",1);
-        Debug.Log("Load Data: level = "+level);
+        var json = PlayerPrefs.GetString(DATA_KEY,"");
+        Debug.Log("Loaded Data: "+json);
+        if (!string.IsNullOrEmpty(json))
+        {
+            gameData = JsonUtility.FromJson<GameData>(json);
+        }
+        else
+        {
+            gameData = new GameData(0,1,5);
+        }
     }
 
     private void OnDespawn()
@@ -74,7 +83,7 @@ public class DataManager : MonoBehaviour
     [ContextMenu("Reset Level")]
     public void ResetLevel()
     {
-        level = 1;
+        gameData.level = 1;
         SaveData();
     }
 }

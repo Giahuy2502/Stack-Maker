@@ -6,10 +6,8 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     [SerializeField] private GameObject brick;
-    
-    private DataManager data => DataManager.Instance;
-    
     bool isTaken = false;
+    private DataManager DataManager => DataManager.Instance;
 
     private void OnEnable()
     {
@@ -34,11 +32,11 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isTaken)
+        if (!isTaken && other.CompareTag(Variables.PLAYER_TAG))
         {
             brick.SetActive(false);
             other.GetComponent<Player>().AddBrick();
-            data.AddScore(1);
+            DataManager.AddScore(1);
             isTaken = true;
         }
     }

@@ -7,10 +7,8 @@ using UnityEngine.UI;
 public class GamePlayPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI levelTxt;
-    [SerializeField] private Button settingBtn;
-
-    private LevelManager levelManager => LevelManager.Instance;
-    private UIManager uiManager => UIManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
     void OnEnable()
     {
         OnInit();
@@ -18,13 +16,13 @@ public class GamePlayPanel : MonoBehaviour
 
     private void OnInit()
     {
-        levelTxt.text = "Level "+ levelManager.CurrentLevel.ToString();
+        levelTxt.text = "Level "+ LevelManager.CurrentLevel.ToString();
     }
 
     public void OnSetting()
     {
-        uiManager.OnSetting();
-        levelManager.OnPause();
+        UIManager.OnSetting();
+        LevelManager.OnPause();
     }
 
     private void OnDisable()

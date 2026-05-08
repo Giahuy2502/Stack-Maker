@@ -8,8 +8,8 @@ public class WinPos : MonoBehaviour
     [SerializeField] private ParticleSystem[] fireworks;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject chestClose,chestOpen;
-    private LevelManager levelManager => LevelManager.Instance;
-    private GameManager manager => GameManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
+    private GameManager GameManager => GameManager.Instance;
 
     private void OnEnable()
     {
@@ -18,9 +18,9 @@ public class WinPos : MonoBehaviour
 
     void OnInit()
     {
-        if (levelManager == null) return;
-        levelManager.onWinGame.AddListener(SetOffFirework);
-        levelManager.onWinGame.AddListener(OpenChest);
+        if (LevelManager == null) return;
+        LevelManager.onWinGame += SetOffFirework;
+        LevelManager.onWinGame += OpenChest;
         CloseChest();
     }
 
@@ -28,7 +28,7 @@ public class WinPos : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            manager.OnWinGame();
+            GameManager.OnWinGame();
             other.transform.position = target.position;
         }
     }
@@ -59,9 +59,9 @@ public class WinPos : MonoBehaviour
 
     private void OnDespawn()
     {
-        if (levelManager == null) return;
-        levelManager.onWinGame.RemoveListener(SetOffFirework);
-        levelManager.onWinGame.RemoveListener(OpenChest);
+        if (LevelManager == null) return;
+        LevelManager.onWinGame -= SetOffFirework;
+        LevelManager.onWinGame -= OpenChest;
     }
     
 }

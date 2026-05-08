@@ -11,11 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameState state = GameState.Playing;
     public static GameManager Instance { get; private set; }
     public GameState State => state;
-    private UIManager uiManager => UIManager.Instance;
-    private LevelManager levelManager => LevelManager.Instance;
-    private DataManager dataManager => DataManager.Instance;
-
-    // public UnityEvent onWinGame;
+    private UIManager UIManager => UIManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
+    private DataManager DataManager => DataManager.Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,9 +27,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         OnInit();
-        levelManager.OnInit();
-        levelManager.LoadLevel(levelManager.CurrentLevel);
-        uiManager.OnInit();
+        LevelManager.OnInit();
+        LevelManager.LoadLevel(LevelManager.CurrentLevel);
+        UIManager.OnInit();
     }
 
     private void OnInit()
@@ -46,34 +44,34 @@ public class GameManager : MonoBehaviour
     public void OnWinGame()
     {
         state = GameState.Win;
-        uiManager.DisaleGamePlayPanel();
-        levelManager.OnWin();
+        UIManager.DisaleGamePlayPanel();
+        LevelManager.OnWin();
         Invoke(nameof(CallWinUI),2.6f);
     }
 
     void CallWinUI()
     {
-        uiManager.OnWin();
+        UIManager.OnWin();
     }
     
     public void OnLoseGame()
     {
-        levelManager.OnLose();
-        uiManager.OnLose();
+        LevelManager.OnLose();
+        UIManager.OnLose();
     }
 
     public void Restart()
     {
         OnDespawn();
         OnInit();
-        levelManager.OnRestart();
+        LevelManager.OnRestart();
     }
 
     public void NextLevel()
     {
         OnDespawn();
         OnInit();
-        levelManager.OnNext();
+        LevelManager.OnNext();
     }
 
     public void ChangeState(GameState newState)
@@ -85,7 +83,7 @@ public class GameManager : MonoBehaviour
     {
         OnDespawn();
         OnInit();
-        dataManager.ResetLevel();
-        levelManager.OnRestart();
+        DataManager.ResetLevel();
+        LevelManager.OnRestart();
     }
 }

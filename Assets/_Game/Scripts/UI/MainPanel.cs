@@ -9,11 +9,10 @@ using UnityEngine.UI;
 public class MainPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI levelTxt;
-    [SerializeField] private Button playBtn;
 
-    private GameManager manager => GameManager.Instance;
-    private UIManager managerUI => UIManager.Instance;
-    private LevelManager levelManager => LevelManager.Instance;
+    private GameManager GameManager => GameManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
 
     void OnEnable()
     {
@@ -22,19 +21,19 @@ public class MainPanel : MonoBehaviour
     
     private void OnInit()
     {
-        levelTxt.text = "Level "+ levelManager.CurrentLevel.ToString();
+        levelTxt.text = "Level "+ LevelManager.CurrentLevel.ToString();
     }
     public void OnPlay()
     {
-        manager.ChangeState(GameState.Playing);
-        managerUI.OnPlayGame();
+        GameManager.ChangeState(GameState.Playing);
+        UIManager.OnPlayGame();
     }
 
     public void OnNewGame()
     {
-        manager.NewGame();
-        manager.ChangeState(GameState.Playing);
-        managerUI.OnPlayGame();
+        GameManager.NewGame();
+        GameManager.ChangeState(GameState.Playing);
+        UIManager.OnPlayGame();
     }
 
     private void OnDespawn()

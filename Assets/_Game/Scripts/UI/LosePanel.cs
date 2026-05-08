@@ -6,22 +6,20 @@ using UnityEngine.UI;
 
 public class LosePanel : MonoBehaviour
 {
-    [SerializeField] private Button restartButton;
-    [SerializeField] private Button menuBtn;
-    private GameManager manager=> GameManager.Instance;
-    private UIManager uiManager => UIManager.Instance;
-    private LevelManager levelManager => LevelManager.Instance;
+    private GameManager GameManager=> GameManager.Instance;
+    private UIManager UIManager => UIManager.Instance;
+    private LevelManager LevelManager => LevelManager.Instance;
     public void OnRestart()
     {
-        levelManager.OnContinue();
-        uiManager.OnPlayGame();
-        manager.Restart();
+        LevelManager.OnContinue();
+        UIManager.OnPlayGame();
+        GameManager.Restart();
     }
     public void OnMenuBtn()
     {
-        uiManager.OnMenu();
-        levelManager.OnContinue();
-        manager.Restart();
-        manager.ChangeState(GameState.Start);
+        UIManager.OnMenu();
+        LevelManager.OnContinue();
+        GameManager.Restart();
+        GameManager.ChangeState(GameState.Start);
     }
 }
