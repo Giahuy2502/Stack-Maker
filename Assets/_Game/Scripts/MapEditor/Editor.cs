@@ -103,10 +103,8 @@ public class Editor : MonoBehaviour
         }
 
         string json = JsonUtility.ToJson(levelData, true);
-        string path = Application.dataPath + "/_Game/Levels/" + levelData.levelName + ".json";
-    
+        string path = Application.dataPath + "/_Game/Resources/Levels/" + levelData.levelName + ".json";
         File.WriteAllText(path, json);
-        Debug.Log("Đã lưu Level tại: " + path);
     }
     private int GetTileID(GameObject instance)
     {
@@ -121,14 +119,12 @@ public class Editor : MonoBehaviour
     
     public void LoadLevel(string levelName)
     {
-        string path = Application.dataPath + "/_Game/Levels/Level_" + levelName + ".json";
-        if (!File.Exists(path))
+        TextAsset textAsset = Resources.Load<TextAsset>("Levels/Level_" + levelName);
+        if (textAsset == null)
         {
-            Debug.LogError("Không tìm thấy file level tại: " + path);
             return;
         }
-        string json = File.ReadAllText(path);
-        LevelData data = JsonUtility.FromJson<LevelData>(json);
+        LevelData data = JsonUtility.FromJson<LevelData>(textAsset.text);
         ClearCurrentMap();
         foreach (TileData tData in data.tiles)
         {

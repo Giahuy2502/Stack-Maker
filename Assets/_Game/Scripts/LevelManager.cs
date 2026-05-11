@@ -43,14 +43,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        string path = Application.dataPath + "/_Game/Levels/Level_" + level + ".json";
-        if (!File.Exists(path))
+        TextAsset textAsset = Resources.Load<TextAsset>("Levels/Level_" + level);
+        if (textAsset == null)
         {
-            Debug.LogError("Không tìm thấy file level tại: " + path);
             return;
         }
-        string json = File.ReadAllText(path);
-        LevelData data = JsonUtility.FromJson<LevelData>(json);
+        LevelData data = JsonUtility.FromJson<LevelData>(textAsset.text);
         foreach (TileData tData in data.tiles)
         {
             if (tData.tileID >= 0 && tData.tileID < tileCollection.Tiles.Count)
